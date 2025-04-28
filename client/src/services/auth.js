@@ -48,6 +48,7 @@ export async function login({ email, password }) {
 // }
 export async function getCurrentUser() {
   const token = localStorage.getItem("token");
+  console.log(token);
   const res = await fetch("http://localhost:3000/profile", {
     headers: {
       Authorization: `Bearer ${token}`,

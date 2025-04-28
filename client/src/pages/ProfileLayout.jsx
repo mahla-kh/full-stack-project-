@@ -9,7 +9,7 @@ function ProfileLayout() {
       <div className="flex mx-20">
         <ProfileSidebar />
 
-        <main className="flex-1 mt-6 mr-6 h-full border-1 border-gray-300 rounded-lg overflow-auto">
+        <main className="flex-1 mt-6 mr-6 h-full border-1  bg-white border-gray-300 text-gray-600 rounded-lg overflow-auto">
           <Outlet />
         </main>
       </div>

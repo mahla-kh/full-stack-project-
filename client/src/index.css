@@ -20,3 +20,10 @@
 body {
   font-family: "Yekan", "BYekan", sans-serif;
 }
+
+.mb-4 {
+  margin-bottom: 16px;
+}
+.mt-4 {
+  margin-top: 16px;
+}
