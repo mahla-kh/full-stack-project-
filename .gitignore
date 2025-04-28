@@ -1,0 +1,32 @@
+# Ignore node_modules everywhere
+**/node_modules/
+
+# Ignore logs
+*.log
+**/*.log
+
+# Ignore environment files
+.env
+.env.*
+
+# Ignore build outputs
+client/build/
+client/.next/
+client/out/
+server/build/
+server/dist/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE settings
+.vscode/
+.idea/
+
+# Ignore npm and yarn lock files separately if you want (optional)
+# Uncomment if needed
+# client/package-lock.json
+# client/yarn.lock
+# server/package-lock.json
+# server/yarn.lock
