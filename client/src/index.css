@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Yekan";
+  src:
+    url("/fonts/Yekan.woff") format("woff"),
+    url("/fonts/Yekan.ttf") format("ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "BYekan";
+  src:
+    url("/fonts/BYekan.woff2") format("woff2"),
+    url("/fonts/BYekan.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "Yekan", "BYekan", sans-serif;
+}
