@@ -1,7 +1,14 @@
 export async function getProduct(id = "680f5fa04ec58f91ac0d0f46") {
-  const res = fetch(`http://localhost:3000/product/${id}`);
+  const res = await fetch(`http://localhost:3000/products/${id}`);
   if (!res.ok) throw new Error("getting product failed");
-  const data = res.json();
+  const data = await res.json();
+  return data;
+}
+
+export async function getAllProducts() {
+  const res = await fetch("http://localhost:3000/products");
+  if (!res.ok) throw new Error("getting product failed");
+  const data = await res.json();
   return data;
 }
 
@@ -17,12 +24,12 @@ export async function getProduct(id = "680f5fa04ec58f91ac0d0f46") {
 //   return res.data;
 // }
 
-export async function getProductPic(id = "680f5fa04ec58f91ac0d0f46") {
-  const res = fetch(`http://localhost:3000/product/${id}/pics`);
-  if (!res.ok) throw new Error("getting product pics failed");
-  // res is an array of buffers
-  return res;
-}
+// export async function getProductPic(id = "680f5fa04ec58f91ac0d0f46") {
+//   const res = fetch(`http://localhost:3000/product/${id}/pics`);
+//   if (!res.ok) throw new Error("getting product pics failed");
+//   // res is an array of buffers
+//   return res;
+// }
 // const handleSubmit = () => {
 //     const formData = new FormData();
 //     for (let i = 0; i < pics.length; i++) {

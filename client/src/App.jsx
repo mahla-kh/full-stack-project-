@@ -94,11 +94,17 @@ const router = createBrowserRouter([
         element: <Women />,
       },
       {
-        path: "/women/:itemId",
+        path: "/products/:id",
         element: <ItemShowFull />,
         loader: oneItemLoader,
         errorElement: <Error />,
       },
+      // {
+      //   path: "/women/:itemId",
+      //   element: <ItemShowFull />,
+      //   loader: oneItemLoader,
+      //   errorElement: <Error />,
+      // },
       {
         path: "/men",
         element: <Men />,

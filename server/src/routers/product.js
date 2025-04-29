@@ -7,6 +7,16 @@ import mongoose from "mongoose";
 
 export const router = express.Router();
 
+router.get("/products", async (req, res) => {
+  try {
+    const products = await Product.findOne({});
+    if (!products) throw new Error("no product found");
+    res.send(products);
+  } catch (err) {
+    res.status(400).send();
+  }
+});
+
 const upload = multer({
   limits: {
     fileSize: 1000000,
@@ -26,7 +36,7 @@ router.post("/addproduct", auth, upload.array("pics", 5), async (req, res) => {
     const processedPics = [];
     for (const file of req.files) {
       const buffer = await sharp(file.buffer)
-        .resize(1000, 1000)
+        .resize(500, 500)
         .toFormat("png")
         .toBuffer();
 
