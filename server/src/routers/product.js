@@ -9,10 +9,11 @@ export const router = express.Router();
 
 router.get("/products", async (req, res) => {
   try {
-    const products = await Product.findOne({});
+    const products = await Product.find({});
     if (!products) throw new Error("no product found");
     res.send(products);
   } catch (err) {
+    console.log(err);
     res.status(400).send();
   }
 });

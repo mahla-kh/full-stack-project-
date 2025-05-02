@@ -6,10 +6,14 @@ export const router = express.Router();
 router.post("/signup", async (req, res) => {
   try {
     const user = new User(req.body);
-    const token = user.generateToken();
+    console.log("before token ", user);
+    const token = await user.generateToken();
+    console.log("before save ", user);
     await user.save();
+    console.log("after save ", user);
     res.send({ user, token });
   } catch (err) {
+    console.log("error", err);
     res.status(400).send({ error: err });
   }
 });

@@ -1,29 +1,28 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+// import { yupResolver } from "@hookform/resolvers/yup";
+// import * as yup from "yup";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
 import { useSignup } from "../featuers/authentication/useSignup";
 import SpinnerMini from "../ui/SpinnerMini";
 
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email("ایمیل نامعتبر است")
-    .required("وارد کردن ایمیل الزامی است"),
-  fullName: yup.string().required("وارد کردن نام و نام خانوادگی الزامی است"),
-  phone: yup.string().required("وارد کردن شماره تلفن الزامی است"),
-  password: yup
-    .string()
-    .min(8, "رمز عبور باید حداقل ۸ کاراکتر داشته باشد")
-    .matches(/[a-z]/, "باید حداقل یک حرف کوچک داشته باشد")
-    .matches(/[A-Z]/, "باید حداقل یک حرف بزرگ داشته باشد")
-    .matches(/[0-9]/, "باید حداقل یک عدد داشته باشد")
-    .matches(/[^a-zA-Z0-9]/, "باید حداقل یک کاراکتر ویژه داشته باشد")
-    .required("وارد کردن رمز عبور الزامی است"),
-  remember: yup.boolean(),
-});
+// const schema = yup.object().shape({
+//   email: yup
+//     .string()
+//     .email("ایمیل نامعتبر است")
+//     .required("وارد کردن ایمیل الزامی است"),
+//   fullName: yup.string().required("وارد کردن نام و نام خانوادگی الزامی است"),
+//   password: yup
+//     .string()
+//     .min(8, "رمز عبور باید حداقل ۸ کاراکتر داشته باشد")
+//     .matches(/[a-z]/, "باید حداقل یک حرف کوچک داشته باشد")
+//     .matches(/[A-Z]/, "باید حداقل یک حرف بزرگ داشته باشد")
+//     .matches(/[0-9]/, "باید حداقل یک عدد داشته باشد")
+//     .matches(/[^a-zA-Z0-9]/, "باید حداقل یک کاراکتر ویژه داشته باشد")
+//     .required("وارد کردن رمز عبور الزامی است"),
+//   remember: yup.boolean(),
+// });
 
 export default function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,12 +32,12 @@ export default function SignupForm() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm();
+  // } = useForm({ resolver: yupResolver(schema) });
 
-  function onSubmit({ fullName, email, password, phone }) {
-    // console.log("submit");
-    // console.log(fullName, email, password, phone);
-    signup({ fullName, email, password, phone }, { onSettled: reset });
+  function onSubmit({ username, email, password, phoneNumber }) {
+    console.log("submit", { username, email, password, phoneNumber });
+    signup({ username, email, password, phoneNumber }, { onSettled: reset });
   }
 
   return (
@@ -63,7 +62,7 @@ export default function SignupForm() {
           نام و نام خانوادگی
         </label>
         <input
-          {...register("fullName")}
+          {...register("username")}
           className="w-full p-2 border rounded-md focus:ring focus:ring-indigo-300"
         />
         <p className="text-red-500 text-sm">{errors.name?.message}</p>
@@ -74,7 +73,7 @@ export default function SignupForm() {
           شماره موبایل
         </label>
         <input
-          {...register("phone")}
+          {...register("phoneNumber")}
           className="w-full p-2 border rounded-md focus:ring focus:ring-indigo-300"
         />
         <p className="text-red-500 text-sm">{errors.phone?.message}</p>

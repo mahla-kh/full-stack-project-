@@ -22,6 +22,11 @@ const userSchema = new mongoose.Schema(
       trim: true,
       minLength: 8,
     },
+    phoneNumber: {
+      type: String,
+      require: true,
+      trim: true,
+    },
     tokens: [{ token: { type: String, require: true } }],
     avatar: {
       type: Buffer,

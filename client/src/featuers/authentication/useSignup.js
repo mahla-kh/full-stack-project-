@@ -11,8 +11,12 @@ export function useSignup() {
     onSuccess: (user) => {
       toast.success("حساب با موفقیت ساخته شد .");
       toast.success("در حال انتقال ...");
-      queryClient.setQueryData(["user", user.user]);
+      queryClient.setQueryData(["user"], user.user);
       navigate("/profile", { replace: true });
+    },
+    onError: (err) => {
+      console.log("ERROR", err);
+      toast.error("ساخت حساب با خطا مواجه گردید!");
     },
   });
 

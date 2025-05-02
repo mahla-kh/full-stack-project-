@@ -1,16 +1,30 @@
 import supabase from "./supabase";
 
-export async function signup({ email, password, fullName, phone }) {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: { fullName, phone },
-    },
+// export async function signup({ email, password, fullName, phone }) {
+//   const { data, error } = await supabase.auth.signUp({
+//     email,
+//     password,
+//     options: {
+//       data: { fullName, phone },
+//     },
+//   });
+//   if (error) throw new Error(error.message);
+//   return data;
+// }
+
+export async function signup({ username, email, password, phoneNumber }) {
+  const res = await fetch("http://localhost:3000/signup", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, email, password, phoneNumber }),
   });
-  if (error) throw new Error(error.message);
+  if (!res.ok) throw new Error("sign up failed");
+  const data = await res.json();
+  localStorage.removeItem("token");
+  localStorage.setItem("token", data.token);
   return data;
 }
+
 // export async function login({ email, password }) {
 //   let { data, error } = await supabase.auth.signInWithPassword({
 //     email,
@@ -34,7 +48,8 @@ export async function login({ email, password }) {
   }
 
   const data = await res.json();
-  console.log(data);
+  localStorage.removeItem("token");
+  localStorage.setItem("token", data.token);
   return data;
 }
 // export async function getCurrentUser() {
@@ -48,7 +63,6 @@ export async function login({ email, password }) {
 // }
 export async function getCurrentUser() {
   const token = localStorage.getItem("token");
-  console.log(token);
   const res = await fetch("http://localhost:3000/profile", {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -62,7 +76,7 @@ export async function getCurrentUser() {
   }
 
   const data = await res.json();
-  console.log("getCurrentUser", data);
+  // console.log("getCurrentUser", data);
   return data;
 }
 export async function logout() {

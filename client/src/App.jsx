@@ -94,7 +94,7 @@ const router = createBrowserRouter([
         element: <Women />,
       },
       {
-        path: "/products/:id",
+        path: "/women/:id",
         element: <ItemShowFull />,
         loader: oneItemLoader,
         errorElement: <Error />,

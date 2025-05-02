@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { getWomen } from "../services/women";
 import Spinner from "../ui/Spinner";
 import ItemsLayOut from "../featuers/items/ItemsLayOut";
+import { getAllProducts } from "../services/products";
 
 function Women() {
   const {
@@ -10,9 +10,10 @@ function Women() {
     data: womenItems,
     // error,
   } = useQuery({
-    queryKey: ["womenPatterns"],
-    queryFn: getWomen,
+    queryKey: ["allProducts"],
+    queryFn: getAllProducts,
   });
+  console.log(womenItems);
   if (isLoading) return <Spinner />;
   return (
     <>
