@@ -16,6 +16,12 @@ const productSchema = new mongoose.Schema(
     price: {
       type: Number,
     },
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      require: true,
+      default: null,
+    },
     pictures: [{ buffer: { type: Buffer } }],
   },
   { timestamps: true }

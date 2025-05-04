@@ -11,7 +11,7 @@ function UserBox() {
 
   return (
     <div className="flex gap-5">
-      <Link to="/login">
+      <Link to="/profile">
         <FaRegUser size={20} />
       </Link>
       <FaRegHeart size={20} />

@@ -1,9 +1,12 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import ProfileSidebar from "../featuers/profile/ProfileSidebar";
 import ProtectedRoute from "../ui/ProtectedRoute";
 
 function ProfileLayout() {
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+  if (!token) navigate("/login");
   return (
     <ProtectedRoute>
       <div className="flex mx-20">

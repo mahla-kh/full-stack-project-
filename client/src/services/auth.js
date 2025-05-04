@@ -83,3 +83,26 @@ export async function logout() {
   const { error } = await supabase.auth.signOut();
   if (error) throw new Error(error.message);
 }
+
+export async function updateUser(user) {
+  console.log("update", user);
+  const token = localStorage.getItem("token");
+  const res = await fetch("http://localhost:3000/userUpdate", {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    console.log(error);
+    throw new Error(error.message || "Something went wrong");
+  }
+
+  const data = await res.json();
+  console.log("updateUser", data);
+  return data;
+}

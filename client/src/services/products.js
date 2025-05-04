@@ -47,7 +47,7 @@ export async function postProduct(formData) {
     },
     body: formData,
   });
-  console.log(res);
+  console.log("new product ", res);
   const data = await res.json();
   if (!res.ok) throw new Error(data.message || "Something went wrong");
   return data;

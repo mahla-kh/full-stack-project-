@@ -5,6 +5,7 @@ import SpinnerMini from "../../ui/SpinnerMini";
 
 function Addproduct() {
   const [files, setFiles] = useState();
+  const [hasOwner, setHasOwner] = useState(false);
   const { addProduct, isLoading } = useProduct();
   const {
     register,
@@ -13,11 +14,13 @@ function Addproduct() {
     reset,
   } = useForm();
 
-  function onSubmit({ title, desc, price }) {
+  function onSubmit({ title, desc, price, owner, category }) {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("desc", desc);
     formData.append("price", price);
+    formData.append("owner", owner);
+    formData.append("category", category);
 
     for (let i = 0; i < files.length; i++) {
       formData.append("pics", files[i]); // اینجا اسم فیلد باید با بک‌اندت بخونه
@@ -56,14 +59,22 @@ function Addproduct() {
 
         <div>
           <label className="block mb-1">دسته بندی:</label>
-          <input
-            {...register("category")}
+          <select
             type="text"
-            // value={title}
-            // onChange={(e) => setTitle(e.target.value)}
+            name="categorys"
+            {...register("category")}
             className="w-full border p-2 rounded"
             required
-          />
+          >
+            <option value="" disabled defaultChecked>
+              یک دسته بندی انتخاب کنید
+            </option>
+            <option value="زنانه">زنانه</option>
+            <option value="مردانه">مردانه</option>
+            <option value="بچگانه">بچگانه</option>
+            <option value="فانتزی">فانتزی</option>
+            <option value="عمومی">عمومی</option>
+          </select>
         </div>
 
         <div>
@@ -71,14 +82,12 @@ function Addproduct() {
           <input
             type="number"
             {...register("price")}
-            // value={price}
-            // onChange={(e) => setPrice(e.target.value)}
             className="w-full border p-2 rounded"
             required
           />
         </div>
 
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row items-center gap-4">
           <label
             htmlFor="file-upload"
             className="flex mb-1 rounded-md text-center py-2 px-3 text-white bg-cyan-600"
@@ -92,6 +101,21 @@ function Addproduct() {
             onChange={handleFileChange}
             className="hidden"
           />
+          {files ? <span>{files.length}فایل انتخاب شده</span> : null}
+        </div>
+        <div className="flex items-center gap-3">
+          <input
+            type="checkbox"
+            onChange={(e) => setHasOwner(e.target.checked)}
+          />
+          <label>این محصول دارای owner میباشد</label>
+          {hasOwner ? (
+            <input
+              placeholder="آیدی owner"
+              className=" border px-2 rounded"
+              {...register("owner")}
+            />
+          ) : null}
         </div>
 
         <button

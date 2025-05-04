@@ -4,6 +4,7 @@ import multer from "multer";
 import sharp from "sharp";
 import Product from "../models/product.js";
 import mongoose from "mongoose";
+import User from "../models/user.js";
 
 export const router = express.Router();
 
@@ -32,8 +33,12 @@ const upload = multer({
 
 router.post("/addproduct", auth, upload.array("pics", 5), async (req, res) => {
   try {
-    const { title, desc, category, price } = req.body;
+    console.log(req.body);
+    // owner is not the one sending ! so we cant use req.user
+    const { title, desc, owner, category, price } = req.body;
 
+    const validOwner = await User.findById(owner);
+    if (!validOwner) throw new Error("invalid owner");
     const processedPics = [];
     for (const file of req.files) {
       const buffer = await sharp(file.buffer)
@@ -49,6 +54,7 @@ router.post("/addproduct", auth, upload.array("pics", 5), async (req, res) => {
     const product = new Product({
       title,
       desc,
+      owner,
       category,
       price,
       pictures: processedPics,

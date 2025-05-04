@@ -10,6 +10,7 @@ export function useProduct() {
       console.log("useProduct", product);
       queryClient.setQueryData(["product"], product);
       toast.success("محصول با موفقیت اضافه شد ");
+      await queryClient.invalidateQueries(["user"]);
     },
     onError: (err) => {
       console.log("ERROR", err);

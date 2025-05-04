@@ -50,7 +50,7 @@ function ItemShowFull() {
           <img
             src={`data:image/png;base64,${sellectedBase64}`}
             alt="selected"
-            className="w-full h-[400px] object-contain shadow"
+            className="w-full  h-[400px] object-contain shadow"
           />
         </div>
       </div>
@@ -62,7 +62,7 @@ function ItemShowFull() {
             {product.title}
           </h1>
           <p className="text-gray-600 mb-4">{product.desc}</p>
-          {/* <p className="text-gray-600 mb-4">{product.category}</p> */}
+          <p className="text-gray-600 mb-4">{product.category}</p>
           <p className="text-xl font-semibold text-cyan-700">
             {product.price} تومان
           </p>
