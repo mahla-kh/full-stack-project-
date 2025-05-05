@@ -6,11 +6,8 @@ export const router = express.Router();
 router.post("/signup", async (req, res) => {
   try {
     const user = new User(req.body);
-    console.log("before token ", user);
     const token = await user.generateToken();
-    console.log("before save ", user);
     await user.save();
-    console.log("after save ", user);
     res.send({ user, token });
   } catch (err) {
     console.log("error", err);
@@ -33,7 +30,6 @@ router.post("/login", async (req, res) => {
 
 router.get("/profile", auth, async (req, res) => {
   try {
-    console.log(req.user);
     res.send(req.user);
   } catch (err) {
     console.log(err);
@@ -44,7 +40,7 @@ router.get("/profile", auth, async (req, res) => {
 router.patch("/userUpdate", auth, async (req, res) => {
   // if (!req.user._id === req.params.id)
   //   throw new Error("user is not authenticated");
-  console.log("patch : ", req.body);
+  // console.log("patch : ", req.body);
   const updates = Object.keys(req.body);
   const allowedUpdates = [
     "username",
@@ -52,8 +48,8 @@ router.patch("/userUpdate", auth, async (req, res) => {
     "__v",
     "email",
     "updatedAt",
-    "liked",
-    "saved",
+    // "liked",
+    // "saved",
     "phoneNumber",
   ];
   const isValidOperation = updates.every(
@@ -68,7 +64,6 @@ router.patch("/userUpdate", auth, async (req, res) => {
       .filter((update) => update !== "_id")
       .forEach((update) => (req.user[update] = req.body[update]));
     await req.user.save();
-    console.log("req user", req.user);
     // res.send(req.user.toObject());
     res.send(req.user);
   } catch (err) {

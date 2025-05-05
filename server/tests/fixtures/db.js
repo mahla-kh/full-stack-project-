@@ -15,6 +15,21 @@ export const userOne = {
     },
   ],
 };
+export const productOneId = new mongoose.Types.ObjectId();
+export const productOne = {
+  _id: productOneId,
+  title: "test",
+  desc: "test test",
+  category: "زنانه",
+  price: 231,
+  owner: userOneId,
+};
+
+export const firstLike = {
+  _id: new mongoose.Types.ObjectId(),
+  userId: userOneId,
+  productId: productOneId,
+};
 
 export const resetDatabase = async () => {
   await User.deleteMany({});

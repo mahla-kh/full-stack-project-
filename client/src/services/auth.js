@@ -1,5 +1,3 @@
-import supabase from "./supabase";
-
 // export async function signup({ email, password, fullName, phone }) {
 //   const { data, error } = await supabase.auth.signUp({
 //     email,
@@ -79,10 +77,10 @@ export async function getCurrentUser() {
   // console.log("getCurrentUser", data);
   return data;
 }
-export async function logout() {
-  const { error } = await supabase.auth.signOut();
-  if (error) throw new Error(error.message);
-}
+// export async function logout() {
+//   const { error } = await supabase.auth.signOut();
+//   if (error) throw new Error(error.message);
+// }
 
 export async function updateUser(user) {
   console.log("update", user);

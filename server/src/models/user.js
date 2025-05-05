@@ -28,10 +28,10 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
     tokens: [{ token: { type: String, required: true } }],
-    liked: [
-      { productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" } },
-    ],
-    saved: [{ productId: { type: mongoose.Types.ObjectId, ref: "Product" } }],
+    // liked: [
+    //   { productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" } },
+    // ],
+    // saved: [{ productId: { type: mongoose.Types.ObjectId, ref: "Product" } }],
     avatar: {
       type: Buffer,
     },
@@ -57,7 +57,6 @@ userSchema.methods.generateToken = async function () {
   const user = this;
   const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET);
   user.tokens = user.tokens.concat({ token });
-  console.log(user);
   await user.save();
   return token;
 };

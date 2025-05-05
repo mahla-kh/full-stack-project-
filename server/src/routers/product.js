@@ -33,7 +33,6 @@ const upload = multer({
 
 router.post("/addproduct", auth, upload.array("pics", 5), async (req, res) => {
   try {
-    console.log(req.body);
     // owner is not the one sending ! so we cant use req.user
     const { title, desc, owner, category, price } = req.body;
 

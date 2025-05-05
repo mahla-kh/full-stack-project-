@@ -1,18 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { IoIosLogOut } from "react-icons/io";
+// import { IoIosLogOut } from "react-icons/io";
 import { IoLocationOutline } from "react-icons/io5";
 import { FaRegBell } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa6";
 import { FaRegUser } from "react-icons/fa";
 import { IoBagOutline } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
-import { useLogout } from "../authentication/useLogout";
-import SpinnerMini from "../../ui/SpinnerMini";
+// import { useLogout } from "../authentication/useLogout";
+// import SpinnerMini from "../../ui/SpinnerMini";
 import { useUser } from "../authentication/useUser";
 // import { getCurrentUser } from "../../services/auth";
 function ProfileSidebar() {
-  const { logout, isLoading: loggingout } = useLogout();
+  // const { logout, isLoading: loggingout } = useLogout();
   // const user = getCurrentUser();
   const { user } = useUser();
   const username = user?.username;
@@ -106,11 +106,11 @@ function ProfileSidebar() {
             </li>
             <li>
               <button
-                disabled={loggingout}
-                onClick={logout}
+                // disabled={loggingout}
+                // onClick={logout}
                 className="flex items-center py-2 gap-6 text-red-500 hover:text-red-600 transition w-full"
               >
-                {!loggingout ? <IoIosLogOut /> : <SpinnerMini />}
+                {/* {!loggingout ? <IoIosLogOut /> : <SpinnerMini />} */}
                 <span>خروج</span>
               </button>
             </li>

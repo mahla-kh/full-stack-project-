@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: react-frontend
+    env: node
+    plan: free
+    repo: https://github.com/mahla-kh/full-stack-project-
+    branch: master
+    rootDir: client
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://your-backend.onrender.com
+
+  - type: web
+    name: express-backend
+    env: node
+    plan: free
+    repo: https://github.com/mahla-kh/full-stack-project-
+    branch: master
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: MONGODB_URI
+        value: mongodb+srv://mahla:a51fZ53iYNk5kaDr@sewing.lxaz1pb.mongodb.net/sewing?retryWrites=true&w=majority

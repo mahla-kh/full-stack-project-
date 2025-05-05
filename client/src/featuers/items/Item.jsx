@@ -3,16 +3,22 @@ import React, { useState } from "react";
 import { formatCurrency } from "../../hooks/helper";
 import { FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useUserUpdate } from "../authentication/useUserUpdate";
 import { useQueryClient } from "@tanstack/react-query";
 import Spinner from "../../ui/Spinner";
+import { useAddLike } from "../likes/useAddLike";
+import { useAllLikes } from "../likes/useAllLikes";
+import toast from "react-hot-toast";
+import { useUserLikes } from "../likes/useUserLikes";
 
 function Item({ item }) {
   const { _id, title, price, pictures } = item;
   const [isHovered, setIsHovered] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
-
-  const { updateUser, isLoading } = useUserUpdate();
+  const { addLike, isLoading: isAddingLike } = useAddLike();
+  const { removeLike, isLoading: isRemovingLike } = useAddLike();
+  const { allLikes } = useAllLikes();
+  const { userLikes } = useUserLikes();
+  const isLiked = userLikes?.some((like) => like.productId === _id) ?? false;
+  // const [isLiked, setIsLiked] = useState(isItemLiked);
   function arrayBufferToBase64(buffer) {
     let binary = "";
     const bytes = new Uint8Array(buffer);
@@ -22,23 +28,30 @@ function Item({ item }) {
     return window.btoa(binary);
   }
   const imageFront = arrayBufferToBase64(pictures[0].buffer.data);
-  const imageBack = arrayBufferToBase64(pictures[1].buffer.data);
+  const imageBack = arrayBufferToBase64(
+    pictures[1] ? pictures[1].buffer.data : pictures[0].buffer.data
+  );
   const base64 = isHovered ? imageBack : imageFront;
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(["user"]);
 
   function handleLike() {
-    setIsLiked((like) => !like);
-    if (!user) throw new Error("No user in query");
+    if (isAddingLike || isRemovingLike) {
+      return;
+    }
+    if (!user) {
+      toast.error("ابتدا وارد شوید !");
+      return;
+    }
     console.log("user in item", user);
-    const alreadyLiked = user.liked.some((like) => like.productId === _id);
-    const updatedUser = alreadyLiked
-      ? user
-      : { ...user, liked: [...user.liked, { productId: _id }] };
+    const alreadyLiked = allLikes?.some((like) => like.productId === _id);
+    alreadyLiked
+      ? removeLike({ userId: user._id, productId: _id })
+      : addLike({ userId: user._id, productId: _id });
 
-    updateUser(updatedUser);
+    // setIsLiked((like) => !like);
   }
-  if (isLoading) return <Spinner />;
+  if (isAddingLike || isRemovingLike) return <Spinner />;
   return (
     <div className="flex flex-col relative gap-1 sm:gap-3 w-40 sm:w-60 bg-white border border-gray-200 rounded-lg shadow-md p-4 transition-transform transform hover:scale-105">
       <span
